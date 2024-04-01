@@ -1,5 +1,5 @@
 Asmae ANEMROUD                                                                                                              
-Systèmes distribuées 
+Systèmes distribuées
 MIAAD
 Promotion: 2023-2025
 
