@@ -168,10 +168,10 @@ Ajouter une classe Calcul qui calcule la somme des deux nombres a et b :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/1365e978-728c-4135-999f-68deb614ab34)
 
 Créer un test unitaire CalculTest :
-	Si le test est réussi il affiche un truc vert :
+        Si le test est réussi il affiche un truc vert :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/6c7fe646-ee0c-4841-9175-330b4974a188)
 
-	Si ce n’est pas le cas, il affiche une erreur :
+        Si ce n’est pas le cas, il affiche une erreur :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/4c129931-9777-4f5c-b237-5cab14f59737)
 
 
