@@ -85,7 +85,7 @@ Le fichier de configuration « config.txt » :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/38780af6-7704-4917-9528-e82368d34971)
 
 •	Ajouter les dépendances du framework Spring :
-![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/607eff54-5621-4884-a0ff-670405841258)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0b8a3c24-7f6c-4231-91e9-e8336a559f22)
 
 ### c.	En utilisant le Framework Spring :
                - Version XML :
