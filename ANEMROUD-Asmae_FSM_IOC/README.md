@@ -1,7 +1,9 @@
-Asmae ANEMROUD                                                                                                            Systèmes distribuées                                                                                                          MIAAD                                                                                                                   
+Asmae ANEMROUD                                                                                                           
+Systèmes distribuées                                                                                                        
+MIAAD                                                                                                                   
 Promotion: 2023-2025
 
-                                                      Compte rendu JEE/TP1
+                                                   Compte rendu JEE/TP1
 
 # Un petit résumé sur la première partie :
 Dans le développement de logiciels, il y a deux parties principales d’une application : le front-end et le back-end.
