@@ -16,20 +16,31 @@ Il existe trois types d’applications :
 •	les applications mobiles 
 
 •	et les applications Desktop.
+
 Dans un projet logiciel, il y a des exigences fonctionnelles et techniques :
 
 •	Les exigences fonctionnelles sont les besoins spécifiques de l’entreprise auxquels le logiciel doit répondre.
 
 •	Les exigences techniques comprennent la performance, la maintenance, la sécurité et la gestion des transactions.
+
 Pour répondre aux exigences techniques, il est important de tenir compte de : 
+
 •	La performance, qui peut être réalisée par la Scalabilité verticale (ajout de ressources à un seul serveur) ou horizontale (ajout de serveurs).
+
 •	La maintenance est la possibilité de modifier ou d’étendre une application sans modifier le code.
+
 Pour créer une application facile à maintenir, il est important d’utiliser le principe de l’inversion de contrôle, qui permet aux développeurs de se concentrer sur la logique métier tandis que le framework gère les détails techniques.
+
 L’inversion du contrôle peut être réalisée grâce à l’utilisation d’un paradigme appelé programmation orientée vers les aspects, qui sépare les préoccupations telles que la sécurité, les transactions et l’accès aux données.
+
 Lors de la création d’une application, il est important de séparer la logique de l’interface utilisateur de la logique métier.
+
 Il est également important de considérer le couplage entre les différentes parties de l’application. Le couplage faible, réalisé grâce à l’utilisation d’interfaces, permet une plus grande flexibilité et maintenabilité.
+
 Certains modèles de conception qui peuvent être utilisés pour améliorer la maintenabilité d’une application comprennent le modèle d’injection de dépendance qui permet l’injection de dépendances dans une classe, plutôt que de coder ces dépendances. Cela peut rendre la classe plus flexible et plus facile à tester.
+
 Pour résumer, créer une application maintenable implique de considérer les principes de cohésion et de couplage, d’utiliser des modèles de conception et d’utiliser le principe d’inversion de contrôle. Il est également important de considérer la séparation des préoccupations, l’utilisation d’interfaces et l’injection de dépendances.
+
 # Partie 1 :
 ## 1.	Créer l'interface IDao avec une méthode getDate :
    ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/ff8b3785-80ac-46d3-935e-cb83a00bdd91)
