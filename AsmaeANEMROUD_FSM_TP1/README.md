@@ -174,7 +174,6 @@ Créer un test unitaire CalculTest :
         Si ce n’est pas le cas, il affiche une erreur :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/4c129931-9777-4f5c-b237-5cab14f59737)
 
-
 Dans Intellij nous n’avons pas besoin d’installer maven car il fait partie des outils qui sont dans-il.
 On peut exécuter même les commandes de base dans Intellij :
 
