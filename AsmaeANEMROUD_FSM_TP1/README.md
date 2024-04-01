@@ -88,7 +88,7 @@ Le fichier de configuration « config.txt » :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/607eff54-5621-4884-a0ff-670405841258)
 
 ### c.	En utilisant le Framework Spring :
-  - Version XML :
+               - Version XML :
 
 •	Créer le fichier de configuration « applicationContext.xml » :
 Le premier bean sert à créer un objet dao de la classe DaoImpl.
@@ -177,6 +177,7 @@ Créer un test unitaire CalculTest :
 
 Dans Intellij nous n’avons pas besoin d’installer maven car il fait partie des outils qui sont dans-il.
 On peut exécuter même les commandes de base dans Intellij :
+
 •	Compile :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/8d21ad33-7f31-4656-832f-7b048a35ebd3)
 
