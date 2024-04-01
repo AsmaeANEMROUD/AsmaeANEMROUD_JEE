@@ -1,17 +1,25 @@
-Asmae ANEMROUD                                                                                                        MIAAD 
-Systèmes distribuées                                                                                          Promotion: 2023-2025
-                                                          Compte rendu JEE/TP1
+Asmae ANEMROUD                                                                                                              MIAAD 
+Systèmes distribuées                                                                                         Promotion: 2023-2025
+                                                        Compte rendu JEE/TP1
 
 # Un petit résumé sur la première partie :
 Dans le développement de logiciels, il y a deux parties principales d’une application : le front-end et le back-end.
+
 •	Le front-end, ou côté client, est la partie de l’application avec laquelle les utilisateurs interagissent. Il est généralement construit en utilisant des langages tels que HTML, CSS et JavaScript.
+
 •	Le back-end, ou serveur, est la partie de l’application qui gère le stockage et le traitement des données. Il peut être construit en utilisant des technologies telles que PHP, Java ou .NET.
+
 Il existe trois types d’applications : 
+
 •	les applications Web, 
+
 •	les applications mobiles 
+
 •	et les applications Desktop.
 Dans un projet logiciel, il y a des exigences fonctionnelles et techniques :
+
 •	Les exigences fonctionnelles sont les besoins spécifiques de l’entreprise auxquels le logiciel doit répondre.
+
 •	Les exigences techniques comprennent la performance, la maintenance, la sécurité et la gestion des transactions.
 Pour répondre aux exigences techniques, il est important de tenir compte de : 
 •	La performance, qui peut être réalisée par la Scalabilité verticale (ajout de ressources à un seul serveur) ou horizontale (ajout de serveurs).
