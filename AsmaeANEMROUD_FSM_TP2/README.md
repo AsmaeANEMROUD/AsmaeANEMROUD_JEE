@@ -32,3 +32,11 @@ Pour exécuter le code une fois que spring est démarré la façon la plus simpl
 Pour utiliser spring data nous avons besoin de créer un package repository dans lequel on crée l’interface ProductRepository qui hérite de l’interface JpaRepository d’entité Product.
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/a74b4d08-4f69-42cb-bc3a-7a258084266a)
 
+On utilise l’interface ProductRepository pour pouvoir ajouter des produits dans la base de données et pour cela on déclare un objet de type ProductRepository et on fait l’injection des dépendances en utilisant la notation @Autowired, après on enregistre les produits puis les afficher dans la base de données.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d0c935b2-de61-4099-ab17-d6f0c070f7e2)
+
+Affichage dans la base de données :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/7c2351f0-0cfd-4963-9eb2-9bcd1ecd182f)
+
+Si on veut afficher une liste des produits :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/65a86a9c-e7a5-4f27-9a2e-a8a256578153)
