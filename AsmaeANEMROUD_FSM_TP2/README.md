@@ -18,3 +18,6 @@ Pour que la classe Product soit une entité JPA on utilise l'annotation @Entity 
 Après on ajoute au fichier application_properties le port de notre serveur, l’url et la base de données spring.h2.console.enabled pour activer une interface web pour consulter la base de données.
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f02f6f62-9ec9-4fff-826d-c95ee3d0cbb0)
 
+Lorsqu’on démarre l’application springboot, c’est spring qui va démarrer le premier et qu’on il démarre, il va faire l’inversion de contrôle par la configuration du JPA, le scan des classes et la configuration des annotations.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/46c5a91e-071e-4a0d-855f-a333e73c49ab)
+
