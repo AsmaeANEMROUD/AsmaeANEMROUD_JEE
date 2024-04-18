@@ -135,3 +135,10 @@ On redémarre l’application :
 
 Voyons maintenant la table Patient remplie avec des données en utilisant la base de données H2-console :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d608846f-eaf7-4869-b75a-876d369dda59)
+
+Après on injecte encore l’interface MedecinRepository, on démarre l’application :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/372a5abc-96db-46b5-ad72-f5b5bc55372c)
+
+Voyons maintenant la table Medecin remplie avec des données en utilisant la base de données H2-console :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b6f3df6f-1c13-456d-8feb-e00b870491d3)
+
