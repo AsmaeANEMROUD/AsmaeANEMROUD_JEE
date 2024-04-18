@@ -157,3 +157,45 @@ Dans la classe RendezVous, on utilise l’annotation @EnumType.STRING pour affic
 Et voilà la consultation crée :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/bfd07247-bd99-47de-9cf7-dc84acba3ca0)
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/2374b870-dd75-4054-910d-f05c7426cf91)
+
+On a créé une interface IHospitalService dans le package service dans laquelle on ajoute quelque méthode dont on aurait besoin.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/fe4e7deb-76b4-4868-92b3-94c39936c47e)
+
+On a créé ensuite une implémentation de l’interface précédente en utilisant l’annotation @Service (utilisée pour les objets de la couche métier) et l’annotation @Transactional pour que toutes les méthodes soit transactionnelles.
+Pour injecter les dépendances on utilise le constructeur de tous les paramètres.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/56b19988-33fd-472d-adb9-796bcc20a7a6)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/be2a2022-9ea0-49aa-9c91-750ec3a7762e)
+
+On utilise alors notre interface qui contient tous les méthodes au lieu de travailler avec tous les repositories.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/a15751a6-0015-4a6c-8f9b-50e6a7569ed1)
+
+L’identifiant Id n’est pas nécessairement toujours de type Long, il peut être une chaine de caractère. En utilisant une méthode pour générer une chaine de caractère aléatoire unique.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/300ccf34-dc2e-4a81-81e0-65451b89cfec)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/8321642c-2ab3-44dd-82d9-633971845c9d)
+
+On change findById en findAll :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/fc14bdb5-fcf9-4e0d-bbed-314d4ef6ba80)
+
+On change le type Long en String :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/34fb4a69-7dc7-4c72-b038-45d55ee25c0f)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f617f3a8-6025-4ca0-9f34-2481727a99f3)
+
+On démarre l’application pour voir la nouvelle valeur de l’Id :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/3b95fc75-6b94-41b6-ae5e-84fdc10d4d04)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/cfc64f99-23ea-4244-a78d-0519689d5b44)
+
+Dans un package web, on a créé la classe PatientRestService et pour créer un web service il suffit d’utiliser l’annotation @RestController et on fait l’injection des dépendances par l’annotation @Autowired.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/5f0382ae-6483-4a3e-9983-4a8599faa65d)
+
+Après qu’on lance l’application, et on consulte la liste des patients sous format json on trouve un problème de dépendances cycliques car on a une relation bidirectionnelle.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/80d0abc1-2fd3-4154-a4ac-4cd9bd3039cf)
+
+Donc pour le résoudre on utilise l’annotation @JsonProprety pour prendre en considération l’attribut lorsqu’on fait l’ajout mais non pas dans la lecture.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/9f1e010d-6c90-4ebe-81a8-ae841c423a55)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d016d8d9-8ef3-4706-9597-59d99aa9a1d1)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b88b60a6-941e-42fa-8654-7aa8e4098c4a)
+
+Voilà le résultat après l’application de la solution :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/daf99092-52f0-4eab-9ec6-20c2cb146194)
+
+# Partie 3:
