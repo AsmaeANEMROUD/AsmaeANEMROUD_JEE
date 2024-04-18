@@ -142,3 +142,18 @@ Après on injecte encore l’interface MedecinRepository, on démarre l’applic
 Voyons maintenant la table Medecin remplie avec des données en utilisant la base de données H2-console :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b6f3df6f-1c13-456d-8feb-e00b870491d3)
 
+On veut premièrement chercher un patient par son id, puis par son nom et on veut également chercher un medecin par son nom, pour cela on ajoute tout d’abord les fonctions dans les interfaces :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/9fa5097d-dcc7-42af-837d-ae7699759c20)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/bf2b8728-dd3a-4eb5-b74a-31e745d83464)
+
+Après on créer un rendezVous avec un patient et un medecin qui existe déjà. 
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/9d01d28f-879d-43b6-9453-1eb73d90a036)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c8c42027-7cb7-44d5-9df2-1ffc663c1070)
+
+Dans la classe RendezVous, on utilise l’annotation @EnumType.STRING pour afficher les valeurs de type string et non pas de type ordinal.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f52244e5-e727-4d1d-9032-b37576e9ad9c)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/9ba2a859-37b5-4e00-917f-6ae08095dd89)
+
+Et voilà la consultation crée :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/bfd07247-bd99-47de-9cf7-dc84acba3ca0)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/2374b870-dd75-4054-910d-f05c7426cf91)
