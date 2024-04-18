@@ -119,3 +119,15 @@ Voilà les classes et l’énumération :
 
 -	Enumération StatusRDV :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/bfe4cff1-3264-4910-b9a9-02068e2b5e4b)
+
+Dans un package repositories, on a créé une interface pour chaque classe dans entities.
+
+Après on a fait des tests dans l’application avec l’implémentation de l’interface CommandLineRunner ou bien avec la création d’une méthode qui retourne un objet de type CommendLineRunner en utilisant l’annotation Bean.
+
+C’est mieux d’utiliser la deuxième méthode car elle nous a permet de faire l’injection sans utiliser l’annotation @Autowired.
+
+On démarre l’application :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/ce1fe7ab-6129-4761-9228-7524c843ca59)
+
+Voyons la table Patient en utilisant la base de données H2-console :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d7ec81c2-3dab-4eb5-89df-7dc9e72aaa2e)
