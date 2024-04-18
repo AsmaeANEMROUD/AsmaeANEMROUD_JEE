@@ -93,3 +93,29 @@ Voilà le résultat en format json :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/2bd814d9-5d90-45e6-aaf3-75ae19df6d2a)
 
 # Partie 2:
+La première des choses qu’on a fait c’est de créer un projet maven « hospital ».
+
+Puis, et dans un package entities, on a créé les classes Patient, Medecin, Consultation, RendezVous et une énumération StatusRDV.
+
+Pour la date de naissance, on n’a pas besoin de garder l’heure, les minutes on utilise l’annotation @Temporal(TemporalType.DATE).
+
+Pour la collection des rendezVous on utilise l’annotation @OneToMany.
+
+On créer une entité JPA avec l’annotation @Entity qui doit avoir un identifiant et on utilise aussi l’annotation @Id et pour le générer automatiquement, et on utilise l’annotation @GeneratedValue avec la stratégie IDENTITY.
+
+Voilà les classes et l’énumération :
+
+-	classe Patient :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/7ee72233-684d-4038-9788-0ba44f8e89cd)
+
+-	Classe Medecin :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/ced8bb02-0257-468c-a310-379c0c6546fc)
+
+-	Classe Consultation :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/232ec703-c54f-4a53-8fdb-be02ed968d7e)
+
+-	Classe RendezVous :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0fc03be9-0d07-43f7-b2b1-e16d8cf5881d)
+
+-	Enumération StatusRDV :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/bfe4cff1-3264-4910-b9a9-02068e2b5e4b)
