@@ -26,3 +26,9 @@ On se connecte maintenant à notre base de données :
 
 Voilà à quoi se rassemble notre base de données :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/7b7acf58-0a28-4533-9836-b4b21f6e6258)
+
+Pour exécuter le code une fois que spring est démarré la façon la plus simple c’est d’implémenter l’interface CommandLineRunner et on veut ajouter des produits à la base de données.
+
+Pour utiliser spring data nous avons besoin de créer un package repository dans lequel on crée l’interface ProductRepository qui hérite de l’interface JpaRepository d’entité Product.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/a74b4d08-4f69-42cb-bc3a-7a258084266a)
+
