@@ -40,3 +40,10 @@ Affichage dans la base de données :
 
 Si on veut afficher une liste des produits :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/65a86a9c-e7a5-4f27-9a2e-a8a256578153)
+
+Et si on veut afficher le produit dont ID est 1 :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/54b0f3a8-7ac1-46d4-aa8d-5c57b234e36e)
+
+H2 database est une base de données qui démarré en mémoire et une fois qu’on arrête l’application on perd les données c’est pour ça on va basculer vers une base de données mySql. Alors il nous faut charger la dépendance mySql Driver dans le fichier pom.xml.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/94419f3e-200f-47b7-b6f0-afe1ad6722df)
+
