@@ -127,7 +127,7 @@ On démarre l’application pour voir la base de données:
 Voyons par exemple la table Patient en utilisant la base de données H2-console :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d7ec81c2-3dab-4eb5-89df-7dc9e72aaa2e)
 
-Après on a fait des tests dans l’application avec l’implémentation de l’interface CommandLineRunner ou bien avec la création d’une méthode qui retourne un objet de type CommendLineRunner en utilisant l’annotation Bean.
+Après on a fait des tests dans l’application avec l’implémentation de l’interface CommandLineRunner ou bien avec la création d’une méthode qui retourne un objet de type CommendLineRunner en utilisant l’annotation @Bean.
 
 C’est mieux d’utiliser la deuxième méthode car elle nous a permet de faire l’injection sans utiliser l’annotation @Autowired.
 On redémarre l’application :
@@ -199,3 +199,84 @@ Voilà le résultat après l’application de la solution :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/daf99092-52f0-4eab-9ec6-20c2cb146194)
 
 # Partie 3:
+Dans cette partie, on a fait la même chose pour les deux premières parties.
+
+On utilise l’annotation @Column(unique= true, length=20) sur un colonne pour dire qu’il est unique et il ne peut pas dépasser 20 caractères comme on peut lui donner aussi un nom.
+
+On utilise l’annotation @Service pour la couche service et l’annotation @Transactional pour gérer les transactions.
+
+On utilise l’annotation @Repository pour indiquer que ce component de la couche dao.
+
+On fait l’injection des dépendances avec les constructeurs.
+
+Voici les classes du package entities :
+
+-	Classe User :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0150e65a-450c-4b2d-ad22-03935bd56318)
+
+-	Classe Role :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/a9ee19bf-38e4-4a6b-b869-26e86cb4c2c4)
+
+Voici les interfaces du package repositories :
+
+-	UserRepository :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/7cff55a8-a98b-4a57-84e9-740d94cc71d7)
+
+-	RoleRepository :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/9eefbcbe-ae30-4297-826b-e54e815fa58c)
+
+Voici l’interface du package service :
+
+-	UserService :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f7cea66a-5605-42cc-bf73-748aa6866bcc)
+
+Après on a créé une implémentation de cette interface :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/dbf2dba2-1aa8-4cdf-8ad8-2486846cd9ab)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/dbbdc2c7-a020-4c48-972f-4018fbdf0c51)
+
+Puis on ajoute une fonctionne pour trouver un role avec leur nom et même chose pour user :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d1275a99-8acb-4dff-ab27-67aaeede1722)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/dc5eaf69-b6e8-48b7-8406-e14c9212c882)
+
+Après on a fait des tests dans l’application avec l’implémentation de l’interface CommandLineRunner ou bien créer une méthode qui retourne un objet de type CommendLineRunner et utilise l’annotation @Bean.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/ca357964-7702-4e43-b001-324e9de658f0)
+
+Ensuite on ajoute des lignes à application.properties pour avoir connecté à la base de données h2-console :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/29592134-2221-45e0-b6d7-75366f01fe42)
+
+Et on exécute l’application :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/4426ac3e-2f04-4e6a-b217-7671ac424551)
+
+On se connecte à notre base de données « users_db »:
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/4d84ea8f-3d7f-4c62-b052-a6c1ad04014d)
+
+Et voilà notre base de données :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/adb287dd-74eb-448c-8a3d-bbcf59f879a8)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/03006f25-8ae9-4d7c-8a39-7115c8e6e580)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/70cdba33-be97-4059-9b57-41cfc0c5cc2b)
+
+On veut créer un modèle d’authentification. 
+
+Donc la première des choses qu’on a fait et d’ajouter la fonction authenticate à notre interface UserService :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/58c48ee5-3064-4c69-8ce7-994f52291ebd)
+
+On redéfinie cette méthode dans notre implémentation UserServiceImpl pour qu’on vérifie si le mot de passe est correct :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0142c5fe-a442-4c20-ab72-64c9a0ec0592)
+
+On a démarré l’application et on a trouvé une erreur :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/79fd4a86-672f-444e-992b-348bb7c471a6)
+
+Pour les sauver on a utilisé l’annotation @ToString.Exclude sur l’attribut de la liste des utilisateurs dans la classe Role pour spécifier à lombok que ce n’est pas la peine d’inclure la méthode toString.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0dba26f5-c49b-4896-a000-30dfffc8ee02)
+
+Après on a essayé avec un mot de passe incorrect, et on a trouvé le message que nous avons écrit lors de la gestion des exceptions :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d072ab6b-c0bf-481d-8284-5020f1d42781)
+
+Eh, C’est le temps pour basculer à une base de données MySQL.
+
+Comme d’habitude, on va ajouter les dépendances MySQL dans le fichier pom.xml premièrement et après on va modifier application.properties pour qu’il soit connecter à une base de données MySQL au lieu de h2-console :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/44221b9a-5f14-4702-987a-cff0d26bfbdb)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/3ef586e9-5a33-4df8-874b-804e03cd5024)
+
+Lorsqu’on démarre l’application on trouve une erreur, c’est qu’il trouve le champ nommé desc et c’est un mot clé de MySQL :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/87ae7d4c-7e07-4e02-94fd-b68ba7467ac2)
