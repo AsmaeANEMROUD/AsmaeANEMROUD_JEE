@@ -280,3 +280,32 @@ Comme d’habitude, on va ajouter les dépendances MySQL dans le fichier pom.xml
 
 Lorsqu’on démarre l’application on trouve une erreur, c’est qu’il trouve le champ nommé desc et c’est un mot clé de MySQL :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/87ae7d4c-7e07-4e02-94fd-b68ba7467ac2)
+
+Pour résoudre ce problème on a utilisé l’anotation @Column(name= « DESCRIPTION ») mais malheureusement on a trouvé autre erreur c’est que le user1 est dupliquée :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/987c47ef-c809-440b-9321-80365ce93d30)
+
+Pour résoudre ce problème on a changé le hibernate-ddl-auto de update à create :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/8ff6de19-ce5a-4581-af81-8a63e2eef9e6)
+
+Et voilà notre base de données affiché dans phpmyadmin :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/8a2e8ed1-1ce8-4121-b3f3-60be2d65660b)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/af4b5631-baa0-4827-b941-675ae2ca6130)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/1009487d-b0e9-4503-872d-d379b9f848e4)
+
+On réalise un contrôle pour consulter les utilisateurs, on a créé un contrôleur UserController dans un package web.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/ee894dab-f31a-4193-9035-b61f5cf5eeba)
+
+Après qu’on lance l’application, et on consulte le user1 de la liste des users sous format json on trouve un problème de dépendances cycliques car on a une relation bidirectionnelle.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/2db91e8a-b1c9-4269-8d2f-e6e2c21febb0)
+
+Donc pour le résoudre on utilise l’annotation @JsonProprety pour prendre en considération l’attribut lorsqu’on fait l’ajout mais non pas dans la lecture.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/a46b5cee-b7c3-4a22-879b-f0b23a3452e0)
+
+Voilà le résultat :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/846f6f30-716e-4606-8819-a1307a7983fe)
+
+Comme on voie ici le mot de passe est affiché ce qui n’est pas un bonne pratique :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f29f9707-7d23-4e7a-8cfe-53e0156468c8)
+
+Donc pour le résoudre on utilise l’annotation @JsonProprety pour prendre en considération l’attribut password lorsqu’on fait l’ajout mais non pas dans la lecture.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/e381890a-0386-4ddf-bd7e-cb1bd4f4887b)
