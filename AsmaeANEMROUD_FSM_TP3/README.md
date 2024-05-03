@@ -400,4 +400,7 @@ On protège les données avec l’annotation @EnableMethodSecurity, et @PreAutho
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/3aaa874d-2f9d-4902-9971-5f61aa29d38c)
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c14a2690-3f6c-434a-b391-4b096f3630ed)
 
+On remarque que dans Spring Security, quand on demande une ressource quelconque il nous redirige vers la dernière page que nous avons demandé, donc pour éviter ce problème on va ajouter dans l’authentification formlogin() ce qu’on appelle defaultSuccessUrl(« / »), c’est-à-dire quelle que soit la ressource que nous avons demandé, il va nous rediriger vers /.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/87083a17-8b05-46a2-8091-024798e48a6e)
+
 ## JDBC Authentication :
