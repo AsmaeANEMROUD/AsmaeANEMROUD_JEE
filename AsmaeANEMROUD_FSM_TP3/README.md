@@ -281,7 +281,7 @@ Et on a caché la zone de texte de l’id, on affiche sa valeur mais on ne peut 
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/e7a5ebf6-9cd4-452f-a23a-0be63bcdfaa0)
 
 # Partie 3:
-
+- In Memomy Authentication:
 Pour cette partie, on a cloné un projet de github qui s’appelle unsecured-hospital-app, puis on a testé le.
 
 Ce projet est le même que celui de la deuxième partie.
@@ -398,3 +398,5 @@ Maintenant on passe pour stocker les données dans la base de données au lieu d
 On protège les données avec l’annotation @EnableMethodSecurity, et @PreAuthorize.
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/3aaa874d-2f9d-4902-9971-5f61aa29d38c)
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c14a2690-3f6c-434a-b391-4b096f3630ed)
+
+- JDBC Authentication :
