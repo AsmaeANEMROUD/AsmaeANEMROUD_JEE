@@ -404,3 +404,67 @@ On remarque que dans Spring Security, quand on demande une ressource quelconque 
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/87083a17-8b05-46a2-8091-024798e48a6e)
 
 ## JDBC Authentication :
+JDBC Authentication c’est une stratégie qui existe dans Spring Security, il permet de stocker les utilisateurs et les rôles dans une base de données relationnelle avec un accès JDBC, et bien c’est un modèle simplifié qui consiste tout simplement à connecter Spring Security avec une base de données relationnelle dans laquelle Spring Security devrait trouver les utilisateurs et les rôles.
+
+Alors pour l’utiliser il faut d’abord désactiver InMemoryUserDetailsManager, crée une autre méthode qui permet de retourner un objet de type JdbcUserDetailsManager on utilisant la même base de données.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/ed7a49d6-c1f9-486f-ae74-5ba13128aca0)
+
+NB : l’erreur qui s’affiche c’est juste un IntelliJ tooltip bug.
+
+Après on a créé deux tables, une pour stocker les utilisateurs et l’autre pour les rôles.
+
+On prend la structure du fichier users.ddl :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/7c5d63f0-f9e5-45fd-9f40-dea375c08f2c)
+
+On peut créer les tables avec deux méthodes :
+
+-	Première méthode : créer les tables manuellement dans phpMyAdmin.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/87c94e1b-8d47-4165-8ed0-8cb3a05b007d)
+
+-	Deuxième méthode : créer un fichier schema.sql et on coller les lignes qu’on a pris du users.ddl.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/9c775d21-f17c-45e6-b296-0be17e7943f8)
+
+Maintenant on va faire que Spring puisse exécuter ce dernier script au démarrage de l’application.
+
+Pour le faire, il faut changer quelques choses dans application.properties, alors du moment que notre base de données de l’application est déjà généré il va falloir changer la ligne ou on a update par none, c’est-à-dire que nous demandons à JPA de ne pas regénérer la base de données pour les entités, comme il exécute aussi le fichier schema.sql au démarrage.
+
+En même temps on ajoute deux propriétés, always va dire qu’à chaque fois on démarre l’application il initialise la base de données en exécutant schema.sql.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/85f04f58-0599-4639-80a1-45641a4ac804)
+
+On a créé un autre fichier que l’on appelle data.sql dans lequel on va créer des instructions SQL pour alimenter notre base de données.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c269690d-05e2-41ea-8bf7-268b4fb11b15)
+
+Voilà les deux tables sont ajoutées :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/bc68eecc-e6b3-45fd-a530-233ac1c108ba)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/680c1c0e-bc35-4605-924e-0ac17156564e)
+
+On supprime les tables qu’on a créées manuellement et on les crée avec une méthode CommandLineRunner.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/2b6536f3-058f-402c-a4b3-70650e2edb97)
+
+Voilà les tables ont créés :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b04fd764-46f6-41d8-bf01-4d0ec8b6d0cc)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/633c915a-8035-44cc-ae5b-19c91d453d04)
+
+Le problème maintenant c’est qu’il va faire la même chose à chaque fois qu’on exécute l’application ce qui va générer des exceptions, pour cela on fait un test pour qu’il créer un utilisateur juste lorsqu’il n’existe pas.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c7a1e96f-be78-4e4c-836c-0df3f210726a)
+
+On accède à l’application en tant qu’admin :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/5504c43d-acc3-419f-b213-d76780ef9ab6)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/4400625d-9ec9-41cd-939b-9f851a6c76c4)
+
+On accède à l’application en tant qu’un user :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/1dc9c0a1-dd7d-4c14-a8d2-800f1296111d)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/4e192353-34ab-425d-b5f3-eef1ea2f48ab)
+
+## UserDetails Service :
+Pour cette partie ce qu’on va faire c’est de personnaliser notre application.
+
+Tout d’abord on va créer un package entities au sein du package security, dans lequel on va créer une entité que l’on appelle AppUser pour faire la différence avec la classe User de spring Security.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/fba6d981-d896-4850-9319-8bff1e212c94)
+
+Puis, on va créer l’entité AppRole :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0023e1ac-057a-4de9-a61d-b9fb51818911)
+
+Dans la classe AppUser on utilise une relation de type ManyToMany et on a défini une liste des Roles avec l’annotation @ManyToMany on utilisant le mode EAGER pour charger tous les attributs de l’utilisateur et en même temps il va charger tous les rôles de cet utilisateur, on utilise aussi l’annotation @Column pour que le username soit unique.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/68a3e8d9-d899-46b8-95dd-7fb473302cce)
+
