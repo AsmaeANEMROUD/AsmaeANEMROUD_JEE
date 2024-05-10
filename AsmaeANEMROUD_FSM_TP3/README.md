@@ -468,3 +468,40 @@ Puis, on va créer l’entité AppRole :
 Dans la classe AppUser on utilise une relation de type ManyToMany et on a défini une liste des Roles avec l’annotation @ManyToMany on utilisant le mode EAGER pour charger tous les attributs de l’utilisateur et en même temps il va charger tous les rôles de cet utilisateur, on utilise aussi l’annotation @Column pour que le username soit unique.
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/68a3e8d9-d899-46b8-95dd-7fb473302cce)
 
+On a créé un autre package repo, dans lequel on va créer une interface AppUserRepository, qui contient une méthode findByUsername(), et aussi une autre interface AppRoleRepository.
+
+A chaque fois qu’un utilisateur va saisir son username la méthode findByUsername() sera appeler pour chercher l’utilisateur avec son username.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/9622e799-be82-446d-b1dc-c5aef0d9c88c)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/026bf4cb-e90a-439b-8e16-5a7d25b904f6)
+
+Dans un package service on va créer une interface AccountService, dans laquelle on spécifie des méthodes pour gérer les utilisateurs et les rôles c’est-à-dire qui permet d’ajouter un utilisateur (ou un rôle), ajouter ou supprimer les rôles pour l’utilisateur et retourner un utilisateur par son username.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/a6945ce4-3849-4cc2-831e-dd768c51d887)
+
+Puis on va créer une implémentation de cette interface, pour définir les méthodes :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/611fc1e7-e4ed-4565-83ef-a9b5229603e2)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/31b78449-1ba8-4d0d-ad5b-ee5f5a9a8297)
+
+Pour tester les méthodes, au démarrage de l’application on va ajouter quelques utilisateurs et rôles :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/8f15b1d5-78f2-4fd5-acc9-49bbe1c6ab8a)
+
+On voie qu’une erreur apparait car on a déjà cité dans le fichier application.properties, de ne pas générer la base de données, donc pour résoudre cette erreur il suffit de changer la valeur none par update ou create, et on redémarre l’application :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/16d1acaa-9b34-43f4-b4d5-ba6a480cadc8)
+
+Voilà nos tables sont générées dans la base de données :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/1bddd76f-9bf2-4455-89f1-d999568b3de9)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0b687435-dd04-4e8b-bbc6-f1f6a6c3de3d)
+
+La table app_user_roles est une table d’association car on a une relation ManyToMany.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/8a84ce92-59cf-4019-aa3c-a4f8ddc50bad)
+
+Pour basculer de JDBC à UserDetailsService, on va créer la classe UserDetailServiceImpl dans le package service :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/6a7e07b6-75f5-448e-a9a2-2e959089ab35)
+
+Maintenant pour pouvoir l’utiliser, on va revenir à SecurityConfig, et on ajoute la méthode userDetailsService() :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/86e0c471-cc52-4998-ba44-0b933939799c)
+
+On redémarre l’application, puis on ajoute le rôle admin à notre user 1 :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c771d647-1458-4610-8553-f2c8aff22ad7)
+
+Après qu’on s’authentifier, on voie que l’user1 peut supprimer et modifier les patients :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/5798beab-61cd-4bfd-9332-c179918c528b)
