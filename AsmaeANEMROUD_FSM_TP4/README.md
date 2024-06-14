@@ -562,18 +562,13 @@ Alors on veut afficher que le formulaire d’authentification, et celui-ci qui v
 On redémarre l’application, pour voir que nous avons le formulaire sans header, et que pour accéder à un composant il faut créer /admin/composant :
 
 
+
 Mais la suppression et la modification ne fonctionne pas, car on doit modifier les URLs en ajoutant le /admin (on va le faire après), alors ça c’est la première de chose, alors maintenant on va vers notre login et en fait un test que lorsqu’on fait l’authentification avec username admin et password 123 et on clique sur le bouton il affiche le composant admin-template :
 
 Mais on voie que les boutons ne fonctionnent pas, donc c’est le temps de changer les routes :
 
 
-
-
 Donc on redémarre l’application, pour voir que tous se passe bien :
-
-
-
-
 
 
 Jusqu’à maintenant on n’a pas fait l’authentification car on n’a pas protégé, ce que nous allons fait à la suite en utilisant les guards.
@@ -588,13 +583,7 @@ Voilà d’abord comment installer jwt-decoder :
 
 
 
-
-
-
-
-
-
-	Et voilà le code de cette partie :
+Et voilà le code de cette partie :
 Après on va vers le login, et on injecte notre authService, et on spécifie le route que l’on diriger vers si le tout est bien, sinon on récupére le message qu’il va s’afficher :
 On va maintenant pour ajouter l’authState dans le fichier app-state.service, donc on déclare une variable appState dans laquelle on va stocker les informations de l’utilisateur, et on va créer aussi une méthode setAuthState dans laquelle on va créer une copie et on va ajouter les attributs qui se trouve dans state :
 On ajoute quelque code dans le fichier html du composant login, pour qu’il affiche le message d’erreur :
@@ -604,26 +593,13 @@ Maintenant on veut afficher à côté les informations de l’utilisateur qu’i
 
 
 
-
-
-
-
 Puis on définit les méthodes logout et login :
 	Voilà comment s’affiche :
 
 
 
-
-
 C’est le temps maintenant de protéger les routes par des autorisations, donc là qu’on va utiliser les guards, allons pour les créer :
 On va vers authentication guard et on retourne l’utilisateur s’il est authentifié :
-
-
-
-
-
-
-
 
 
 
@@ -637,15 +613,8 @@ Alors maintenant on passe pour qu’on donne le droit de supprimer, d’ajouter 
 
 
 
-
-
-
-
-
 Dans le module des routes, on ajoute can Activate, à notre composant d’ajout :
 On teste l’application avec l’user1, et on voit qu’il ne lui donne pas le droit d’ajouter un produit :
-
-
 
 
 Alors on va créer un composant que l’on appelle not-authorized :
@@ -668,9 +637,6 @@ Voilà le résultat :
 
 On peut améliorer les guards pour ne pas écrire le rôle ADMIN ou autre, pour cela on créer une liste des rôles dans le module des routes :
 Pour le guard maintenant, au lieu d’accéder à admin on va utiliser la route d’ActivatedRoute pour accéder à notre rôle :
-
-
-
 
 
 
