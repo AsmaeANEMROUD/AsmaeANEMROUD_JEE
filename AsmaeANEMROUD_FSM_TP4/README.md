@@ -867,39 +867,54 @@ Deuxièmement il faut protéger les routes :
 Maintenant on passe pour ajouter autre guard pour que l’on diversifié les roles d’Admin et User.
 
 On crée un guard authorization, et on ajoute ce guard dans le module des routes :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/1113f7e9-3dbf-442a-9694-6cd490c0d594)
 
 Après on applique ce guard aux routes que nous voulons :
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0426c7fe-8616-4fa0-98be-78c72f50aeed)
 
 Revenons à notre guard, on va récupérer les roles, et on vérifie si l’un des roles existe comme ceux qui sont requis, puis on teste l’application on se connectant en tant que user pour voir que load students et payments ne fonctionnent pas :
-Dès qu’ils ne fonctionnent pas donc on va les masquées, pour cela on ajoute une condition :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/1f9a7d8e-ca75-4d8e-938d-78e5a4edf7e5)
 
 Dès qu’ils ne fonctionnent pas donc on va les masquées, pour cela on ajoute une condition :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/6c271e3a-597e-4383-a50c-912e91252184)
 
 Maintenant, on veut afficher la liste des payments, pour cela on revient vers notre composant payments, pour injecter le module HttpClient qu’on a ajouté dans nos modules, et dans ngOnInit, on va envoyer une requête vers le backend pour récupérer le backend et stocker les données :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/bb187615-a24e-43d4-b35e-5e3a1ff176a4)
+
 Donc maintenant on va utiliser un matériel table, alors on revient vers notre fichier html du composant payments et on coller le code qu’on a appris de la documentation.
+
 Donc on va d’abord pour ajouter le module MatTableModule :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/11e6ff4c-7682-4d86-982f-ae9919f15700)
+
 Puis on doit déclarer ce qu’on appelle dataSource et l’initialiser, et aussi en déclare displayedColumns pour afficher les colonnes voulus dans le type script de notre composant :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f6192d7c-253f-4b69-ac00-69507c5fe3e8)
+
 Ensuite en revient pour définir nos colonnes dans la partie html :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b0c5ecd6-7c46-48ae-a6b3-9180550fe2cc)
 
 On teste et en trouve une erreur c’est que l’url est protégé par CORS, en fait ce qui se passe c’est que nous avons le backend dans un domaine et nous avons le frontend dans un autre domaine, alors techniquement parlant on n’a pas le droit de récupérer une page à partir d’un domaine x et d’envoyer une requête http vers un domaine y, c’est pour ça il faut demander l’autorisation du backend.
-Après on va voir ça avec spring security, maintenant on va faire quelque chose de plus simple, on va vers notre contrôleur dans le backend et on va ajouter l’annotation @CrossOrigin(« * »), cet étoile veut dire que le backend autorise n’importe quelles page de n’importe quels domaines de faire appel à ces services :
-On démarre l’application, et cette fois ci on voie que les payments s’affichent :
-Alors maintenant on va faire la pagination, on prend juste le code de mat-paginator du documentation et on l’ajoute à notre table après qu’on a ajouté dans les modules :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/085c4f97-7fac-4120-befc-48194c693bb7)
 
+Après on va voir ça avec spring security, maintenant on va faire quelque chose de plus simple, on va vers notre contrôleur dans le backend et on va ajouter l’annotation @CrossOrigin(« * »), cet étoile veut dire que le backend autorise n’importe quelles page de n’importe quels domaines de faire appel à ces services :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/910f36af-2fd0-41e9-baf5-2326cd2735ec)
+
+On démarre l’application, et cette fois ci on voie que les payments s’affichent :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d88cada2-a889-478c-811f-9a984f4468b5)
+
+Alors maintenant on va faire la pagination, on prend juste le code de mat-paginator du documentation et on l’ajoute à notre table après qu’on a ajouté dans les modules :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/20311949-08f8-4f80-95f1-b51e5d9ba697)
 
 Puis dans le type script il nous faut déclarer un @ViewChild(MatPaginator) que l’on va appeler paginator, et qu’il va chercher dans la partie html un objet de type MatPaginator et on va l’affecter à la variable paginator :
- On voie maintenant la pagination :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d16cacab-4c2b-4e94-82bd-33d43c2bdbdf)
 
-
+On voie maintenant la pagination :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/eb8b8686-48d8-47a1-b762-610055c0a84c)
 
 Maintenant on va ajouter le tri, pour cela il nous faut ajouter dans table de la partie html l’élément matSort après qu’on a ajouté dans les modules, la deuxième de chose qu’on va fait est dans chaque colonne on ajoute mat-sort-header :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/9f3b1520-fc09-460c-b840-8eef5348cdee)
+
 Et la dernière chose c’est qu’on va ajouter un autre @ViewChild de type MatSort :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/64263c7a-e49a-4e5c-8411-d6cbfca352b1)
 
 Et comme ça on fait le tri :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/80aa4781-7fb9-4628-aa9e-07cbabf5080e)
