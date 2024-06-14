@@ -22,11 +22,17 @@ Donc, les annotations principales pour créer un web service sont WEPSERVICE. We
 La même chose nous avons une méthode test, une méthode get compte, une méthode qui permet de consulter la liste des comptes. 
 
 •	On va essayer de montrer comment créer d'abord en premier lieu, le web service. Ça, c'est la première étape. 
+
 •	Deuxième étape, comment déployer le web service à travers un serveur Jax-ws, simple dans un premier temps. 
+
 •	Et par la suite, on va voir comment on travaille avec Spring, comment déployer un web service basé sur SOAP dans une application Spring. 
-•	Après, en troisième lieu, on va essayer de voir avec un browser, on va consulter le WSDL pour l'analyser et voir sa structure. 
+
+•	Après, en troisième lieu, on va essayer de voir avec un browser, on va consulter le WSDL pour l'analyser et voir sa structure.
+
 •	Et puis, on va voir comment tester les web services en utilisant un outil qui s'appelle SOAPUI, c'est un outil de test des web services. 
+
 •	Et puis, on va créer un client Java qui permet de consommer le web service. 
+
 •	Et après, nous aurons quelques demandes supplémentaires par la suite où nous pouvons consulter si nous voulons voir comment faire ça avec ces c# et comment le faire avec avec PHP.
 
 On crée un projet Java, Maven sans passer par spring.
