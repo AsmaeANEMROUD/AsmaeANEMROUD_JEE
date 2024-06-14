@@ -560,226 +560,314 @@ Alors on veut afficher que le formulaire d’authentification, et celui-ci qui v
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/bef506d3-80d8-42a5-b867-7096b6da57e7)
 
 On redémarre l’application, pour voir que nous avons le formulaire sans header, et que pour accéder à un composant il faut créer /admin/composant :
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0807b240-e533-4a7d-85ff-746b245b0500)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/1cd2e77d-f968-43f7-98ee-6f68d5db5fd2)
 
 Mais la suppression et la modification ne fonctionne pas, car on doit modifier les URLs en ajoutant le /admin (on va le faire après), alors ça c’est la première de chose, alors maintenant on va vers notre login et en fait un test que lorsqu’on fait l’authentification avec username admin et password 123 et on clique sur le bouton il affiche le composant admin-template :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/fb8e68a1-469e-42ab-9f9a-cdab5579ea81)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/97da4bc4-99bf-4e8e-bc59-e1c6bbf0349b)
 
 Mais on voie que les boutons ne fonctionnent pas, donc c’est le temps de changer les routes :
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/aa5636b7-2814-4e15-9de4-0ff5d0793b82)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/7798f58b-b455-4d8d-b160-64d37825b84e)
 
 Donc on redémarre l’application, pour voir que tous se passe bien :
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/3ebd6ec5-7a17-4043-8fac-8ffac66fdd70)
 
 Jusqu’à maintenant on n’a pas fait l’authentification car on n’a pas protégé, ce que nous allons fait à la suite en utilisant les guards.
-Le guard c’est un service Angular qui va tout simplement vérifier si les routes nécessitent une condition.
-Maintenant on va vers notre fichier db.json pour ajouter une collection des utilisateurs qui ont le droit d’accéder à l’application, on utilise les tokens qui contiennent le jwt token qu’on a pris du site jwt.io et on a encodé le password avec base64 :
-Voilà la liste des utilisateurs sous format json :
 
+Le guard c’est un service Angular qui va tout simplement vérifier si les routes nécessitent une condition.
+
+Maintenant on va vers notre fichier db.json pour ajouter une collection des utilisateurs qui ont le droit d’accéder à l’application, on utilise les tokens qui contiennent le jwt token qu’on a pris du site jwt.io et on a encodé le password avec base64 :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b42176eb-e39c-4864-9344-14e2204af15e)
+
+Voilà la liste des utilisateurs sous format json :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d96a39de-1048-4000-a3df-403d27a98f5e)
 
 Maintenant on va créer un autre service que l’on va appeler auth :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b2aca925-44bb-4100-b515-dfcfd0aae8dd)
+
 On passe pour créer une méthode « async » que l’on appelle login, et qu’il attend à récupérer l’utilisateur en utilisant le mot « await », et le « firstValueFrom » qui rend l’observable en promise, et après il décode le mot de passe avec « atob », puis le vérifier, ensuite on utilise jwtDecode après qu’on l’installe pour décoder notre token afin de récupérer nos données, si le mot de passe est correct tout se passe bien, sinon un message d’erreur se lever.
+
 Voilà d’abord comment installer jwt-decoder :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/a3b0fb19-608b-4497-9a5d-12b7f1bf3a93)
 
 Et voilà le code de cette partie :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/89a81712-a14e-4291-a498-d049c6de5094)
+
 Après on va vers le login, et on injecte notre authService, et on spécifie le route que l’on diriger vers si le tout est bien, sinon on récupére le message qu’il va s’afficher :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/8ae3759c-28b2-4e64-9e2f-efce45e08ab9)
+
 On va maintenant pour ajouter l’authState dans le fichier app-state.service, donc on déclare une variable appState dans laquelle on va stocker les informations de l’utilisateur, et on va créer aussi une méthode setAuthState dans laquelle on va créer une copie et on va ajouter les attributs qui se trouve dans state :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/4b984e87-47be-45b4-9c43-2d63df4dc05c)
+
 On ajoute quelque code dans le fichier html du composant login, pour qu’il affiche le message d’erreur :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/ab15d04d-2494-4cc5-a3e6-ca25b9568d93)
 
 On démarre l’application, et on essaye de lui donner un mot de passe incorrect :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/2f0e471b-ca46-48dd-95a0-f3f60f93a8c3)
+
 Maintenant on veut afficher à côté les informations de l’utilisateur qu’il est connecté, pour cela on va vers le navbar et on fait un test, c’est que si l’utilisateur est connecté on afiche un bouton logout sinon on affiche login :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/39f3ea70-95bb-4b8a-801b-2e41d2f5f129)
 
 Puis on définit les méthodes logout et login :
-	Voilà comment s’affiche :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c54954d7-e259-474a-8e9e-65ad0d799499)
 
-
+Voilà comment s’affiche :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/aeb7a72d-bb37-4782-aa2b-67e7ce34c061)
 
 C’est le temps maintenant de protéger les routes par des autorisations, donc là qu’on va utiliser les guards, allons pour les créer :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/3bbbf584-d716-4659-93da-df4655c30384)
+
 On va vers authentication guard et on retourne l’utilisateur s’il est authentifié :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/5f29cb6b-ad3b-4980-9940-1d25fa9e96c3)
 
 Pour pouvoir utiliser ce guard, on va vers le module des routes, et on ajoute can activate à notre route admin, pour que nous disions que cette route est protégée avec ce guard :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/15fe4724-116e-4f2e-9e0c-fd7913a0b3a0)
+
 Pour les tester on va démarrer l’application et on tape /admin manuellement et on voie que ça marche pas :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/a3d41298-4eb0-454f-ba81-01027519b541)
 
 Maintenant on veut qu’il nous redirige vers la page login, au lieu d’afficher une page vide, pour ça on change un peu dans le guard :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/1c010aeb-555e-42e4-b6fe-3f0ff6abc043)
+
 Alors maintenant on passe pour qu’on donne le droit de supprimer, d’ajouter et d’éditer un produit qu’à l’admin, pour cela on va vers le guard authorization pour qu’on fait une vérification est ce que les rôles de l’utilisateur contient le rôle admin pour le donner le droit :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/fb1a09a1-12aa-4082-ac55-31d7f40da744)
 
 Dans le module des routes, on ajoute can Activate, à notre composant d’ajout :
-On teste l’application avec l’user1, et on voit qu’il ne lui donne pas le droit d’ajouter un produit :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/4ca2421d-2a14-41e2-9b3c-998451a52ebc)
 
+On teste l’application avec l’user1, et on voit qu’il ne lui donne pas le droit d’ajouter un produit :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/90efb343-8505-49c2-a831-6fc33fa51ae3)
 
 Alors on va créer un composant que l’on appelle not-authorized :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/5bb8069b-e8a9-4445-8428-d849101f5354)
+
 Et on va créer un peu de code pour afficher un message d’erreur :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/651034ad-cf3b-4c2f-bad0-5ffc297327f5)
+
 On ajoute ce composant dans notre route admin :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/52de78a0-29af-4d23-abf5-976d1b6e4bf7)
 
 Après on ajoute une ligne de code dans notre guard pour qu’il affiche le message d’erreur aux utilisateurs qui n’ont pas le droit d’ajouter un produit :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/3cc29e1f-2b62-4e46-9a10-5b0314cf27be)
+
 Maintenant on passe pour faire la même chose pour l’édition :
-
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b476268e-1bee-41d9-b6a3-1af5938f391d)
 
 Pour la suppression elle a pas une route, donc va la masquer, aussi que pour l’édition et le check :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/23b37890-3c36-412f-8d66-6a1ac59153eb)
+
 Voilà le résultat :
-
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b97831d6-0547-4c59-88c5-361faafa6956)
 
 On peut améliorer les guards pour ne pas écrire le rôle ADMIN ou autre, pour cela on créer une liste des rôles dans le module des routes :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/53c2b5a0-63a6-4037-87b8-48fde5298548)
+
 Pour le guard maintenant, au lieu d’accéder à admin on va utiliser la route d’ActivatedRoute pour accéder à notre rôle :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/e5d6aa6b-a259-457a-baf6-fb4f016b98ae)
 
 NB : tout ce qu’on fait dans cette partie est un faut backend, on a protégé juste le frontend.
 
 # Troisième partie :
+
 ## A.	Développer et Tester la partie Backend avec Spring :
+
 Dans cette partie, on va créer une autre application qui gère des étudiants qui ont fait plusieurs paiements, on travaille sur le backend puis le frontend et ensuite on va voir comment les combiner.
+
 Tout d’abord on va créer l’application, et on ajoute les dépendances :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/e0ba350f-50f0-457a-bdab-0ca63e421216)
 
 Puis on va créer les packages que nous avons besoin.
-On commence par les entities, on a deux Student et Payement et pour cette dernière on a deux classes de type énumération, on a défini aussi les annotations que nous avons l’habitude d’utiliser :
 
+On commence par les entities, on a deux Student et Payement et pour cette dernière on a deux classes de type énumération, on a défini aussi les annotations que nous avons l’habitude d’utiliser :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0760851b-5048-4920-bd2f-91b63b0fa455)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c43b2064-de77-4830-82c4-c23a4bbfcbb4)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/89246f99-cbb9-4680-a77a-071c508ba29f)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c2855566-0aac-42d4-a524-1c29b92c868c)
 
 Après on va dans les repository pour gérer les étudiants, on va créer une interface StudentRepository, dans laquelle on va définir une méthode pour chercher un étudiant par son code, et une deuxième méthode qui va retourner la liste des étudiants d’une filière donnée :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/6bda43a9-6c59-43e9-95c8-853725cb55ae)
 
 Puis de la même manière, on va créer une deuxième repository pour gérer les paiements, donc on va créer une interface PaymentRepository, dans laquelle on va définir une méthode pour retourner les paiements de l’étudiant, et une deuxième méthode pour retourner les paiements selon un status, et aussi une troisième pour chercher la liste des paiements par type :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b8e7a22c-fc0c-4749-961c-b1b047229676)
+
 Après on veut faire un test, dans notre application on va remplir d’abord notre base de données avec des données, puis on va créer des paiements pour chaque étudiant :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b4d949d4-7261-417f-b53a-38b43cb08d94)
 
 Avant de tester on va configurer notre base de données :
-Et on va créer un web service, un Rest controller dans notre packege web, on crée un RestController que l’on appelle PaymentRestController, dans lequel on va injecter StudentRepository et PaymentRepository via le constructeur, et on va créer une méthode pour consulter la liste de tous les paiements pour les retourner, et une pour consulter les paiements sachant l’id, et autre pour consulter tous les étudiants, et une pour consulter un étudiant sachant son code, autre pour consulter les étudiants d’une filière, et une pour les paiements de l’étudiants, et aussi une pour les paiements par status, et la dernière pour consulter les paiements par type :
-On passe pour tester l’application, on trouve une exception qui signifie que dans le mapping de notre Rest Controller on a une ambiguïté :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/38f444d8-13c5-492f-a16f-93f497bddabd)
 
+Et on va créer un web service, un Rest controller dans notre packege web, on crée un RestController que l’on appelle PaymentRestController, dans lequel on va injecter StudentRepository et PaymentRepository via le constructeur, et on va créer une méthode pour consulter la liste de tous les paiements pour les retourner, et une pour consulter les paiements sachant l’id, et autre pour consulter tous les étudiants, et une pour consulter un étudiant sachant son code, autre pour consulter les étudiants d’une filière, et une pour les paiements de l’étudiants, et aussi une pour les paiements par status, et la dernière pour consulter les paiements par type :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0fdfb801-d5a9-4b09-88f7-f9306d4f07a5)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/6b677a4b-1e0c-4a19-9890-8b2683cf77f9)
+
+On passe pour tester l’application, on trouve une exception qui signifie que dans le mapping de notre Rest Controller on a une ambiguïté :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/bb958eb2-c5b6-428f-bdc5-101841758cc1)
 
 Justement ce problème se lève car on a /payements utilisé plusieurs fois, donc allons pour régler le problème on changeant le mapping des méthodes paymentsByStatus, et PaymentsByType, puis on lançe l’application pour voir qu’il n’a pas de conflit :
-On teste notre application :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d2c86db8-5904-4a70-8338-5f7e5fa76a8b)
 
+On teste notre application :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f0dde245-04cc-43a4-968e-fb89a6ecad8f)
 
 Pour tester les API Rest Full, on a un moyen beaucoup plus pratique c’est d’utiliser la documentation swagger, donc pour le faire on ajoute une dépendance à notre fichier pom.xml :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/4e4d4ce8-bcd0-4070-bdf9-d3e0fde8928c)
+
 On redémarre l’application et on va dans le serveur pour faire appel au swagger-ui.html :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/2363fdd4-11fd-43cc-b62c-371886ef0510)
+
 Nous avons vu comment s’affiche, donc on passe pour tester tous les méthodes, on cite ici juste un exemple, et on peut appliquer pour les autres :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/3a202d56-e577-4c80-8dd7-7f40ef7f5375)
+
 On va ajouter une méthode aussi qui permet de mettre à jour le statut de paiement, et on redémarre l’application :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/54f5508b-8fd2-4e92-bc70-f8bc251f2ae5)
 
 Pour tester on actualise le server, et on modifier par exemple l’id 1 en VALIDATED :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c4de0f5b-237d-437a-8399-2963f6f3ab39)
+
 Les données sont stockées dans la base de données h2, donc voilà on a bien les deux tables student et payment :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/87ec2423-f88f-43c3-b51b-b5e7cdda7547)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/48c01e49-4baa-471f-a900-5941dc20341c)
 
 Donc il nous reste d’ajouter un paiement, c’est l’occasion de voir aussi comment faire upload.
+
 On va créer une méthode pour ajouter un paiement : 
-
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/40ac0150-efa9-46b3-8ebf-73e9f5773ecb)
 
 On teste et on voie que le paiement a été créé avec le file :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/74d102eb-be70-4420-af0a-868c98f7fd47)
 
 On vérifie si le file existe, et s’il est dans le bon endroit, et que ce file a été bien créé dans la base de données :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d42c3d9e-5392-4ffe-a346-ff16ef043942)
 
 Maintenant on va créer une méthode qui nous a permet de consulter ce file :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/91ce46b3-cb98-4fea-b8f1-c19db2da37e5)
+
 On teste dans le server :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b12f8ded-f713-4fc1-9bcf-d6d340d71bea)
 
 Pour respecter les bonnes pratiques on remplace les méthodes ayant un traitement dans un service PaymentService que l’on injecte et on utilise dans le PaymentRestController :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/8f837299-d96f-4a84-a5f0-f34e00bf89c7)
 
 ## B.	Développer la partie frontend en utilisant Angular avec Angular Material pour la partie design :
+
 Dans cette partie on va créer le frontend avec angular.
+
 Dans le même projet précédent on va créer un dossier que l’on appelle frontend-ang, et on créer notre projet angular dans le terminal comme suit :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b2f27601-4d5b-4ea4-b9a2-b1f3a98cc0a5)
+
 Alors maintenant on va installer Angular Material (C’est un framework de design qui à peu près nous donne les mêmes fonctionnalités que nous trouvons dans bootstrap ou encore mieux avec des web components) :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/ae072c81-ce42-4d6c-9e7d-143526d94af2)
+
 On démarre l’application :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0eeedab1-ca6a-4a59-b7da-79bb26ad7464)
+
 Donc ce qu’on fait, on va générer un composant que l’on appelle admin-template :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/866f2413-2878-40cb-8586-33b8e37f950c)
 
 On va donc afficher ce composant dans app.component :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/db3e0f64-077d-4ab0-a22d-1441f088c636)
+
 Maintenant on crée une barre de navigation dans admin-template, avec une sidebar :
-
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b3760040-75b5-40c3-b9d2-2fb477a2a1a8)
 
 Pour que ces balises d’angular material fonctionnent on a ajouté des modules :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b39fdbd5-1220-44b2-8e07-4ab6f7daa1b4)
+
 Alors on passe pour faire notre système de navigation, d’abord on va créer les composants (on va citer ici un seul exemple de home et c’est le même pour les autres) :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f8734996-cf65-46b7-99db-14fc1097fe1c)
 
 Puis on va déclarer les routes :
-Donc on va utiliser ces routes dans notre système de navigation, et on voie qu’il marche bien :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/dbfef126-f0a8-4fb3-b74a-ad99a3379781)
 
+Donc on va utiliser ces routes dans notre système de navigation, et on voie qu’il marche bien :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/9e082d1b-754a-43e6-a501-3ce0c5149e3d)
 
 Maintenant on va mettre à jour nos composants, en prend comme exemple home, et on le fait de la même manière pour les autres et on teste :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/3501ade5-008f-490b-98c9-187933aa0e7c)
+
 Il nous reste le bouton de menu, qu’il doit afficher et masquer le menu, c’est simple on va créer un id pour le menu que l’on appelle dans le bouton en utilisant toggle :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/ea4c3c89-1353-4998-ab3d-05593ec1a6e6)
 
 On veut que notre application quand il démarre affiche un formulaire d’authentification, alors dans app.component on va utiliser router-outlet au lieu d’admin-template :
-Après on suppose que le route par défaut c’est login, alors on le déplace en haut et on ajoute un autre route pour que s’il ne fait rien il affiche le formulaire d’authentification aussi :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/1a093315-1d7c-45b1-9848-3365168766a0)
 
+Après on suppose que le route par défaut c’est login, alors on le déplace en haut et on ajoute un autre route pour que s’il ne fait rien il affiche le formulaire d’authentification aussi :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/bc31b0b2-3524-4145-8ae6-07ecf058fffa)
 
 Alors allons pour compléter la page d’authentification :
-Jusqu’à maintenant on n’a pas un système d’authentification en backend, on va bricoler un qui est basique en frontend.
-Pour cela maintenant on va voir comment récupérer les données du formulaire, tout d’abord on va importer un module qui s’appelle ReactiveFormsModule :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/101ac555-b4d0-4406-ba00-3fa409961bde)
 
+Jusqu’à maintenant on n’a pas un système d’authentification en backend, on va bricoler un qui est basique en frontend.
+
+Pour cela maintenant on va voir comment récupérer les données du formulaire, tout d’abord on va importer un module qui s’appelle ReactiveFormsModule :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/499d638f-0d08-422c-a2f7-2e0f2937369e)
 
 Maintenant dans notre composant login, on va déclarer notre formulaire, et l’initialiser :
- On doit faire la data binding, ça veut dire lier les champs du formulaire avec ses variables :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/e2e8e3a3-2d7d-4106-8e17-fd00440a466a)
 
-
+On doit faire la data binding, ça veut dire lier les champs du formulaire avec ses variables :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/853fbc28-72bc-4d52-a838-a3c682e3c2a3)
 
 On va ajouter un click dans notre bouton qui fait appelle à la méthode login qu’on va créer après :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/963eb5c4-6801-4aa9-93d2-90faa3e1e6d8)
+
 Passons pour définir la méthode login dans laquelle on va récupérer le username et le mot de passe :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/17e42661-3411-4a01-a151-b5a819224309)
 
 Nous allons en train de créer un système d’authentification basique, pour cela on doit créer un service :
-Dans ce service on fait une vérification du mot de passe saisie par l’utilisateur est le mot de passe stockées déjà, on précise les rôles aussi pour chaque utilisateur :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d7e704ae-e2cb-4b3c-b9a7-21d0575df5c8)
 
+Dans ce service on fait une vérification du mot de passe saisie par l’utilisateur est le mot de passe stockées déjà, on précise les rôles aussi pour chaque utilisateur :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/015f13a0-9730-4306-b47a-cc3094d2445d)
 
 Revenons maintenant à notre composant login pour terminer la définition de la méthode login :
-N’oublions pas d’ajouter la route d’admin :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/328475c2-ce08-4e48-83b5-9f5108e34395)
 
+N’oublions pas d’ajouter la route d’admin :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/42b79630-c8af-47ef-a609-6b2fb9b0312e)
 
 On va tester, on se connecte avec le compte admin :
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b16226d6-ebc1-47da-8060-d8fc5dacdb59)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/33de09a4-7159-4558-84e0-e51a78af8b88)
 
 Maintenant on doit changer la structure des routes, les tous doivent être des children de la route admin :
-Mais à condition de changer les liens dans admin-template en ajoutant /admin :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/6045735c-d270-47c8-b3a4-1982de8c3085)
 
+Mais à condition de changer les liens dans admin-template en ajoutant /admin :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/25a95be2-b5f6-402e-aaac-e155d8966730)
 
 Notre système d’authentification n’est pas complet car on doit garder l’utilisateur connecté, alors on fait ça dans notre service auth :
-Alors on n’a besoin d’afficher l’utilisateur connecté donc on va vers admin-template et on injecte le service auth, puis on créer un bouton dans la partie html en faisons un teste si l’utilisateur est authentifié, on affiche son nom, ainsi on va ajouter un click dans le bouton logout :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/e7304656-20ab-4fcb-b405-4fcfcb8f7cde)
 
+Alors on n’a besoin d’afficher l’utilisateur connecté donc on va vers admin-template et on injecte le service auth, puis on créer un bouton dans la partie html en faisons un teste si l’utilisateur est authentifié, on affiche son nom, ainsi on va ajouter un click dans le bouton logout :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f5df5d06-6928-486a-af0f-62e2a3aa049c)
 
 On va créer la méthode logout dans le composant admin-template, qui est a son tour fait appelle à la méthode logout du service auth :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/eb5ae003-7eb0-4b88-a92b-c661dfd64df3)
+
 Allons pour redéfinir cette dernière méthode dans notre service :
-
-
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/849e3ac5-4076-491d-b498-1189376c5ddb)
 
 Mais on a encore un problème c’est que on peut accéder à quelle page via l’url, pour se régler ça on doit protéger les routes, en utilisant guards.
-Donc on va créer le guard auth :
-Donc on ajoute une ligne de code pour que le guard vérifie si l’utilisateur est connecté ou non :
 
+Donc on va créer le guard auth :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/5d18be32-9ac1-47f5-a901-ad22f788bf58)
+
+Donc on ajoute une ligne de code pour que le guard vérifie si l’utilisateur est connecté ou non :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/3ded5572-bf16-4a20-bc0b-a42f55dc98ff)
 
 Alors pour que ce service fonctionne on doit le déclarer dans le module premièrement :
-Deuxièmement il faut protéger les routes :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0de4908b-ea3c-46d4-a7fa-01c86cf4889b)
 
+Deuxièmement il faut protéger les routes :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/780bf92a-13c5-4ba1-8839-cd324a7bd0f8)
 
 Maintenant on passe pour ajouter autre guard pour que l’on diversifié les roles d’Admin et User.
+
 On crée un guard authorization, et on ajoute ce guard dans le module des routes :
+
 Après on applique ce guard aux routes que nous voulons :
 
 
