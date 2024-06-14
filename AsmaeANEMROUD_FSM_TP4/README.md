@@ -562,7 +562,6 @@ Alors on veut afficher que le formulaire d’authentification, et celui-ci qui v
 On redémarre l’application, pour voir que nous avons le formulaire sans header, et que pour accéder à un composant il faut créer /admin/composant :
 
 
-
 Mais la suppression et la modification ne fonctionne pas, car on doit modifier les URLs en ajoutant le /admin (on va le faire après), alors ça c’est la première de chose, alors maintenant on va vers notre login et en fait un test que lorsqu’on fait l’authentification avec username admin et password 123 et on clique sur le bouton il affiche le composant admin-template :
 
 Mais on voie que les boutons ne fonctionnent pas, donc c’est le temps de changer les routes :
