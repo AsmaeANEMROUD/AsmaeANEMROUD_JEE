@@ -274,5 +274,5 @@ Pour éviter ce problème, il faut passer vers les DTO, ou bien aller vers Custo
 On faisons ça, il va marcher pour Rest et non pas graphql car il ne change rien :
 ![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/652a2a1b-cea3-41e5-b02c-0629875487e6)
 
-# Deuxième partie : Développer une architecture micro-service :
+# Deuxième partie : Développer une architecture micro-service
 ## 1. Créer le micro-service Discovery Service
