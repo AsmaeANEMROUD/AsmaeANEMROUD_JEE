@@ -276,3 +276,190 @@ On faisons ça, il va marcher pour Rest et non pas graphql car il ne change rien
 
 # Deuxième partie : Développer une architecture micro-service
 ## 1. Créer le micro-service Discovery Service
+Dans cette partie on va voir comment mettre en place un exemple d’architecture micro service.
+
+Pour cela on va créer un nouveau projet bank-account-service et on ajoute des modules customer-service et account-service (on crée un projet de plusieurs modules dont chaque module représente un micro service) :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/267afb95-7b49-4309-92f5-41355b62231a)
+
+Avec l’ajout des dépendances pour chaque module :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/12f6e2a8-3e21-4cd7-a88b-71e74cbd4704)
+
+Puis on va créer le module gateway-service (Spring cloud gateway est une gateway qui est basée sur les entrées/sorties non bloquantes), après le discovery-service et config-service et à chacun ses propres dépendances, et voilà notre projet :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/ef74e193-052d-4907-bd08-002a1e7bcb8b)
+
+On va commencer par customer-service et on va le tester indépendamment et après on va voir comment faire pour qu’il puisse s’enregistrer au niveau Discovery une fois qu’on va créer les autres micro services.
+
+Dans customer-service, on va créer les packages qu’on a l’habitude de créer pour respecter les bons pratiques : web, entities, repository, service, dtos et mapper, et on crée l’entité Customer avec les annotations lombok :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/500eb41c-094c-4606-b3ee-1568c398f3d4)
+
+On crée l’interface CustomerRepository et on peut aussi ajouter l’annotation @RepositoryRestResource de Spring data Rest qui permet de démarrer automatiquement un web service RestFull qui permet à son tour de gérer les customers mais on ne le fait pas dans notre cas.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/fbef9dc9-89a6-4726-8b0b-114191615f45)
+
+Dans le package web on crée le contrôleur CustomerRestController, et on fait l’injection des dépendances via un constructeur avec paramètres et après on crée une méthode pour consulter la liste des customers et une méthode pour consulter un customer :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/e2b6e89d-fc8e-4e57-b0ae-376f1c5af325)
+
+Pour tester notre application on va insérer quelques customers dans la base de données et n’oublions pas d’ajouter l’annotation @Bean qui veut dire que cette méthode va s’exécuter au démarrage spring par définition.
+
+On a trois possibilités pour créer un customer la première c’est d’utiliser un constructeur sans paramètres, la deuxième c’est d’utiliser un constructeur avec paramètres et la troisième c’est d’utiliser Builder, on va travailler avec cette dernière :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b3e46f16-da5c-42b4-aba7-c052dfed1cf6)
+
+Lorsqu’on teste on trouve une exception générée car elle va chercher le discovery client et le config client qu’on n’a pas démarrer encore :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/5f2047e7-6ca0-4ac1-8549-6c54239a12f6)
+
+Alors pour résoudre ce problème on va désactiver les services de configuration, et de discovery dans le fichier application.propreties et on fait la configuration qu’on a besoin :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/9eacd274-1d83-4ecd-ba02-ccd9c7d931e6)
+
+On teste :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/6727b7ee-8c3c-481f-bee3-2e0ae6d0f839)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/eb38df8c-af14-43c1-b92f-34e41236dde7)
+
+On consulte aussi la base de données H2 :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f6089239-dd1a-4444-9b35-dba8ca8c810f)
+
+Maintenant on passe au micro service account-service dont on va créer les packages qu’on a l’habitude de créer, et on va créer une entité BankAccount qui contient un attribut (une simple classe Customer) qui n’est pas une entité JPA, et on va utiliser l’annotation @Transient pour ignorer cet attribut car c’est un attribut qui existe dans la classe mais qui n’est pas représenter dans la base de données :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d10c32b0-1ff4-4cc2-8865-3954107f05f2)
+
+Voilà la classe enum AccountType :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/8328fce2-0a2a-47a2-ae6f-234f326b658d)
+
+Et voilà la classe Customer qu’on a créé dans un package model, pour représenter notre attribut customer :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d0d05401-5d75-4c84-9966-091c30fbfabd)
+
+On va créer aussi une interface BankAccountRepository :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/49777a94-130a-48cc-a5c9-82f92d8f416a)
+
+Après on crée le web service AccountRestContoller dans lequel on crée 2 méthodes la première pour consulter la liste des comptes et la deuxième pour consulter un compte par son id :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f40b20ad-02f3-4f7d-9bce-a94153beabe0)
+
+Alors on fait un test en créant des comptes de la même façon dont on fait tout à l’heure :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/4beb7786-7851-40d8-8790-3d9ba4ec0986)
+
+Avant de démarrer ce micro service, on a besoin de le configurer :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0d651725-96af-40e7-801c-e4d41195f2e6)
+
+On teste :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f6f2175c-e7a7-4058-b835-0f8498db56b5)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/da2fa9e8-4551-42e1-9790-3ee92a5453b0)
+
+C’est le temps de générer la documentation Swagger pour les web services en ajoutant la dépendance openai-api :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/de8c7283-dfaf-4808-bd65-9c6d951cb9d0)
+
+Et on teste les méthodes :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d2279fe8-c758-481b-8d91-314b8d68cefa)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b2ee8cbd-5bab-42f2-8e55-5045d74d5a2b)
+
+Si on veut voir la documentation swagger il affiche l’interface du web service c’est ce document qui montre au client quelles sont les différentes méthodes qui existe dans le web services (dans les web services basées sur soap on utilise le WSDL mais pour d’autre qui ont basés sur Rest on utilise openapi doc) :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/3848eb6d-0a5e-4afb-ab97-43819cfde9ac)
+
+Les méthodes BankAccounts qui existe dans swagger ça va marcher car la dépendance data-Rest n’est pas désactivé même si on n’a pas utilisé l’annotatioon @RepositoryRestRessource il génére un web service.
+
+On va donc la désactiver on mettant leur dépendance en commentaire :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/802ee0e9-d601-4718-833c-b74400eec26b)
+
+Si on redémarre maintenant on voie que les autres méthodes n’apparaitre pas :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/715c5b1e-d2a1-4cf8-8445-0319555462d3)
+
+Allons pour faire la même chose au customer-service, on ajoute la dépendance openai-api :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c20a3365-e273-43ee-886e-945138101c16)
+
+Et on ajoute l’annotation @RequestMapping pour éviter la confusion :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/1ba62c21-5185-42a1-861a-72c4307753f4)
+
+On teste la méthode POST et on voie que tout se passe bien :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/fa1102fe-78eb-48da-8b7f-1d6ba3e1d407)
+
+On va répéter le même scénario, on désactive la dépendance data-rest pour customer-service car on n’a pas besoin et on lève l’annotation @RequestMapping :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/39db1d6b-3ea1-479e-bfcc-b46ada8dd8b5)
+
+On teste :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/0c121fba-9733-4b57-a588-ecdb3a0e670a)
+
+Maintenant, on va avoir comment mettre en place la gateway.
+
+Pour le gateway, il y a deux solutions la première est l’ancienne c’est ZUUL qui est basée sur les entrées/sotries bloquantes et Spring Cloud Gateway qui est basé sur les entrées/sorties non bloquantes, alors on va voir comment configurer ce gateway et pour configurer les routes de gateway, on peut le faire d’une manière statique ou dynamique et pour cette configuration on utilise le fichier application.yml pour celles qui sont complexes et application.properties pour les configurations simples.
+
+On va configurer les routes dans le fichier application.yml, et on spécifier aussi le nom de l’application et le port comme on peut aussi faire cette configuration dans le fichier application.properties mais c’est compliqué.
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c66783c4-8199-4568-aecc-2c449677c7f2)
+
+On va pour démarrer ce gateway :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/dbfedf8e-5016-4128-bd28-7ac7f32a306e)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/d63afae0-1664-481f-aa60-64f55ce74e61)
+
+Ce qu’on a fait c’est de la configuration statique ou on suppose qu’on connait les adresses des micros services, mais dans la pratique on le connait pas donc la solution c’est de faire la configuration dynamique (utiliser Discovery service).
+
+On va activer le discovery service en utilisant l’annotation @EnableEurekaServer :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/49cc7cd0-eea5-4bfc-b0da-c5985b0d984b)
+
+Et on le configure dans application.properties :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/3288ccdf-6c88-4eda-ac9d-92b00d1ea068)
+
+On démarre et on voie une interface eureka avec les applications enregistrés après qu’on active la propriété discovery dans les services et on redémarre chaque service :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/af5ee466-047d-499f-b78a-8cfcef9fa44f)
+
+Mais les services s’enregistrent avec le nom de l’ordinateur et nous avons besoin de l’enregistrer avec leurs adresses IPs et pour ce faire on ajoute 2 propriétés pour les 3 services :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/b399b922-a084-41fd-bc8d-6275867e9713)
+
+On redémarre pour voir qu’ils sont enregistrés, et on consulte un service pour voir qu’on a l’adresse IP :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/210f6ea2-d4a1-40d6-92c2-9cb1c10aac81)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/eb1f9b6d-e09c-4375-b8f3-b5338f007bcc)
+
+Maintenant notre gateway, on va le configurer pour qu’il puisse chercher les adresses dans discovery.
+
+Donc on va faire une configuration dynamique :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/75d8c75c-9ae5-43a8-b408-eaca3e59a21a)
+
+On démarre et il passe bien :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/de4bcb46-d309-474b-b17a-82cc09c8805f)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/a62dd8b4-0f88-456f-aae1-7f6c24d00070)
+
+Si on veut activer les services de actuator, on doit utiliser une propriété :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/4864d4f3-653d-4109-b631-e5eb71de36bd)
+
+Et on redémarre :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/e00e0cba-da67-41f6-9cda-f4650e364826)
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/fc6d2e18-9cdf-4777-a455-e34d057812e4)
+
+Si on consulte la liste des comptes, on voie l’id de customer mais on voie pas leurs autres informations, comme son nom, donc pour ce faire nous aurons besoin d’envoyer une requête vers customer-service du coté account-service.  
+
+On va utiliser le framework open Feign qui va se charger de Rest c’est le plus simple et lui qui permettre de faire facilement les microservices alors pour utiliser Open Feign on a besoin d’ajouter une dépendance dans account-service :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/63a36d59-f11b-4fe1-a4c7-b984e020e3bd)
+
+Pour utiliser Open Fiegn, on va créer un package clients qui contient une interface CustomerRestClient et on veut que cette interface soit Open Feign, alors on utilise l’annotation @FeignClient(name = CUSTOMER-SERVICE) :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/a8bf9087-c70f-4fd5-9bbf-bf260b97ec31)
+
+Pour tester, on va déclarer CustomerRestClient dans AccountRestController :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/f2a51690-36eb-4730-ac8f-c784b2e0bb80)
+
+Et il nous faut activer OpenFiegn avec l’annotation @EnableFeignClients pour qu’on puisse l’utiliser :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/4efe4deb-bd3e-4c31-8cd5-d897f2ae1345)
+
+On démarre et on voie les informations de customer :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/7af9e8f1-0854-43cc-baf6-911f33620938)
+
+Nous allons maintenant faire face à un problème qui s’appelle tolérance en panne, supposons on n’a le service customer est arrêté il va influencer tous les autres services et ça c’est mauvais, alors la solution c’est d’utiliser un design pattern qui s’appelle Circuit Breaker qui est un circuit ouvert fermé.
+
+Alors pour qu’on puisse l’utiliser on va ajouter la dépendance resilience4j :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/cc6cf71c-5f11-479f-9f19-7d9d4da8c4fa)
+
+Maintenant on va vers notre client Rest, et on créer un circuit breaker avec l’annotation @CircuitBreaker avec fallbackMethod qui veut dire à quelle méthode on va appeler si la méthode courante échoue :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/77aa977f-03ea-4c9e-b0c0-498594b9def8)
+
+On arrête notre service et on va démarrer pour tester si notre service est tombe en panne qu’est ce qu’on va voir :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/ea287467-980c-47f5-bfe7-6bdb368d4246)
+
+On va juste utiliser un Circuit Breaker à l’autre méthode allCustomers :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/1abfe10b-3b67-4640-89c0-24d10bdec008)
+
+Si on veut maintenant consulter la liste des customers à partir de l’application AccountService, nous voulons dès le démarrage qu’il cherche les customers, et créer deux comptes pour chaque customer :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/7f1eb849-43cb-458d-b4db-5187420ce517)
+
+On démarre les deux services Customer et Account :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/02ca86d5-2363-4c44-82f2-2c48a78ea87d)
+
+Maintenant on veut associer Customer à AllCustomers :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/c7820c13-e912-4c7e-bf90-e37fd33a0840)
+
+On démarre :
+![image](https://github.com/AsmaeANEMROUD/AsmaeANEMROUD_JEE/assets/164891923/24c03057-764b-4cc0-8a32-d867b625a700)
+
+## 2. Créer le micro-service Config Service
